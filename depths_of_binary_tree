@@ -1,0 +1,65 @@
+Problem: Find sum of depths of all nodes in a binary tree
+          1
+        /   \
+      2      5
+    /  \    /  \
+   4    2  5    8
+  / \
+ 7   5
+
+result = 16
+how? 
+first level = 0
+second = 2 nodes * 1 = 2
+third = 4 nodes * 2 = 8
+fourth = 2 nodes * 3 = 16
+
+Solution:
+process all nodes at a level together (BFS), maintaining the num of nodes in this level and current depth.
+
+curr_depth = 0
+all_depths = 0
+
+queue = []
+queue.append(root)
+while queue:
+	count = len(queue) # num of elements in this level
+	all_depths += count * curr_depth
+	while count:
+		node = queue.pop(0)
+		queue.append(node.left) if node.left
+		queue.append(node.right) if node.right
+		count -= 1
+
+	curr_depth += 1
+
+
+Problem2: now consider such sum of depths for all sub-trees.
+result = 26
+
+Solution:
+Each node is calculated for each tree above it for all sizes from 1 to depth-1. So, we can modify the existing solution to add a running count of total_depths for this node for all the trees
+          1
+        /   \
+      2      5               2 * (1)       = 2
+    /  \    /  \
+   4    2  5    8            4 * (1+2=3)   = 12
+  / \
+ 7   5                       2 * (1+2+3=6) = 12
+
+curr_depth = 0
+total_depth = 0
+all_depths = 0
+queue = []
+queue.append(root)
+while queue:
+	count = len(queue) # num of elements in this level
+	all_depths += count * total_depth
+	while count:
+		node = queue.pop(0)
+		queue.append(node.left) if node.left
+		queue.append(node.right) if node.right
+		count -= 1
+
+	curr_depth += 1
+	total_depth += curr_depth
