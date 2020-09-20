@@ -1,0 +1,70 @@
+Problem: Given pair of Cartesian points, find how many rectangles can we make (squares included). Consider rectangles with sides parallel to X-Y axes.
+
+E.g.
+    *       *      *
+    *       *      *
+3
+
+    *       *      *
+    *              *
+1
+
+    *       *      *
+    *              *
+    *       *      *
+5 (and not 6 as only sides parallel to X-Y axes)
+
+Solution:
+A rectangle is formed for points that are:
+
+x1,y2        x2,y2
+
+x1,y1        x2,y1
+
+simple answer:
+Try to form pair of points that are on same X and Y lines and then merge them.
+
+for pair in pair_of_points: # O(n^2). nested loop
+	if x1 == x2:
+		same_vertical.append(x1,y1, x1,y2)
+
+for pair in pair_of_points:
+	if y1 == y2:
+		same_horizontal.append(x1,y1, x2,y1)
+
+# and then compare pairs
+for pair in same_horizontal:
+	for pair in same_horizontal:
+		if same_vertical.contains(pair1^pair2) and same_vertical.contains(pair2^pair1):
+			rectangle.append(pair1, pair2)
+
+# O(n^3)
+
+simpler answer:
+instead of considering same lines, consider all diagonal pairs (points that don't lie on same X,Y lines)
+
+for pair in points:
+	if x1 != x2 and y1 != y2:
+		if points.contain(x1, y2) and points.contain(x2, y1):
+			rectangle.append(x1,y1, x2,y1, x2,y2, x1,y2)
+
+# O(n^3)
+# we can have points in a set for search - O(n^2)
+
+harder problem:
+what if rectangles could be all over the place
+
+- Then consider 3 point groups and find whether there is a fourth point that completes the rectangle.
+- pair of all diagonals and diagonals should 'bisect' at 90 degrees and have equal length.
+
+
+for pair in points:
+	if x1 != x2 and y1 != y2:
+		diagonals.append(x1,y1, x2,y2)
+
+for d1 in diagonals:
+	for d2 in diagonals:
+		if len(d1) == len(d2)
+			and slope(d1) * slope(d2) = -1
+			and intersection(d1, d2) is midpoint:
+			rectangle.append(d1, d2)
