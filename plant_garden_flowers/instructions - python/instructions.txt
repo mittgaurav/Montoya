@@ -1,0 +1,46 @@
+Instructions
+============
+
+Put flowers in a garden given garden layout and flower details
+
+Garden File
+===========
+Garden layout with possible planting locations. Walls are 'X' and free spots as ' '. e.g.
+
+XXXXXXXXXX
+X      XXX
+X X   XXXX
+X     XXXX
+X     XX X
+XXXXXXXXXX
+
+There are 21 possible positions where a flower can be planted.
+
+
+Flower File
+===========
+Each line containing a tuple of flower type, number of flowers to plant of that type, and a constraint on minimum distance between two flowers of that type.e.g.
+a,3,1
+b,2,2
+c,2,2
+d,2,5
+
+This should be interpreted as:
+3 flowers of type 'a' should be planted - the minimum distance is 1 (so these can be placed next to each other)
+2 flowers of type 'b' should be planted - the minimum distance is 2 (so all 'b' flowers must have at least distance 2 to all other 'b' flowers)
+2 flowers of type 'c' should be planted - the minimum distance is 2
+2 flowers of type 'd' should be planted - the minimum distance is 5
+
+Use the manhattan distance (vertical distance + horizontal distance).
+
+
+Example Output
+==============
+One possible solution is:
+
+XXXXXXXXXX
+Xaaa  dXXX
+XbXb  XXXX
+X c   XXXX
+Xc    XXdX
+XXXXXXXXXX
